@@ -1,0 +1,8 @@
+name: GravNet
+params:
+  hidden_dim: 128
+  num_layers: 3
+  dropout: 0.5
+  k: 16              # 每个节点的邻居数
+  space_dimensions: 4       # 学习的坐标空间维度
+  propagate_dimensions: 32  # 节点特征传播维度

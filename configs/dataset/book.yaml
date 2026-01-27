@@ -1,0 +1,12 @@
+name: books-nc
+data_root: /root/autodl-tmp/MMAG
+
+text_path: /root/autodl-tmp/MMAG/books-nc/books-nc.csv
+image_path: /root/autodl-tmp/MMAG/books-nc/books-ncImages_extracted/books-ncImages
+graph_path: /root/autodl-tmp/MMAG/books-nc/books-ncGraph.pt
+v_emb_path: /root/autodl-tmp/MMAG/books-nc/image_features/books-nc_image_Qwen_Qwen2_VL_7B_Instruct_768d.npy
+t_emb_path: /root/autodl-tmp/MMAG/books-nc/text_features/books-nc_text_Qwen_Qwen2_VL_7B_Instruct_768d.npy
+train_ratio: 0.1
+val_ratio: 0.05
+edge_split_path: None
+num_neg: 1000

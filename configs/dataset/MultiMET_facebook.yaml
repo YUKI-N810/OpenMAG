@@ -1,0 +1,14 @@
+name: MultiMET_facebook
+data_root: /root/autodl-tmp/MMAG
+
+text_path: /root/autodl-tmp/MMAG/MultiMET_facebook/MultiMET_facebook.csv
+image_path: /root/autodl-tmp/MMAG/MultiMET_facebook/MultiMET_facebookImages_extracted/MultiMET_facebookImages
+graph_path: /root/autodl-tmp/MMAG/MultiMET_facebook/MultiMET_facebookGraph.pt
+v_emb_path: /root/autodl-tmp/MMAG/MultiMET_facebook/image_features/MultiMET_facebook_image_Qwen2_VL_7B_Instruct_768d.npy
+t_emb_path: /root/autodl-tmp/MMAG/MultiMET_facebook/text_features/MultiMET_facebook_text_Qwen2_VL_7B_Instruct_768d.npy
+train_ratio: 0.6
+val_ratio: 0.2
+lp_val_ratio: 0.2
+lp_test_ratio: 0.2
+edge_split_path: None
+num_neg: 5000

@@ -1,0 +1,7 @@
+name: GATv2
+params:
+  num_layers: 2  
+  hidden_dim: 128   
+  dropout: 0.1
+  heads: 4           
+  att_dropout: 0.1

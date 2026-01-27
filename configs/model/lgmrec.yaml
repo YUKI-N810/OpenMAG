@@ -1,0 +1,7 @@
+name: LGMRec
+params:
+  num_layers: 3        
+  hidden_dim: 128
+  dropout: 0.2
+  hyper_num: 64
+  alpha: 0.1

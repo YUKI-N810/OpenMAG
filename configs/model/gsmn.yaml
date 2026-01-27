@@ -1,0 +1,6 @@
+name: GSMN
+params:
+  num_layers: 2
+  hidden_dim: 256
+  out_dim: 768
+  dropout: 0.02

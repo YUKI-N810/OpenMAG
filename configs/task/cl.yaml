@@ -1,0 +1,16 @@
+name: cl
+n_epochs: 500
+lr: 5e-3
+fewshots: False
+weight_decay: 1e-5
+n_runs: 3
+self_loop: True
+undirected: True
+num_neighbors: 25
+batch_size: 512
+lambda_v: 0.5
+lambda_t: 0.5
+lambda_model: 1.0
+lambda_kl: 100.0
+lambda_contrastive: 1.0
+lambda_reconstruction: 1.0

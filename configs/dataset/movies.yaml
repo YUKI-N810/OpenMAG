@@ -1,0 +1,14 @@
+name: Movies
+data_root: /root/autodl-tmp/MMAG
+
+text_path: /root/autodl-tmp/MMAG/Movies/Movies.csv
+image_path: /root/autodl-tmp/MMAG/Movies/MoviesImages_extracted/MoviesImages
+graph_path: /root/autodl-tmp/MMAG/Movies/MoviesGraph.pt
+v_emb_path: /root/autodl-tmp/MMAG/Movies/image_features/Movies_image_Qwen_Qwen2_VL_7B_Instruct_768d.npy
+t_emb_path: /root/autodl-tmp/MMAG/Movies/text_features/Movies_text_Qwen_Qwen2_VL_7B_Instruct_768d.npy
+train_ratio: 0.6
+val_ratio: 0.2
+lp_val_ratio: 0.2
+lp_test_ratio: 0.2
+edge_split_path: None
+num_neg: 5000

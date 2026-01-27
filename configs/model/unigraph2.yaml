@@ -1,0 +1,11 @@
+name: UniGraph2
+params:
+  hidden_dim: 768
+  num_experts: 8
+  num_selected_experts: 2
+  num_layers: 3
+  feat_drop_rate: 0.1
+  edge_mask_rate: 0.1
+  gamma: 2.0
+  lambda_spd: 0.5
+  dropout: 0.2

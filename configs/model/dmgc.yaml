@@ -1,0 +1,13 @@
+name: DMGC
+params:
+  hidden_dim: 128
+  embed_dim: 128
+  num_layers: 1
+  k_l: 10
+  k_h: 6
+  tau: 1.0
+  lambda_cr: 0.001
+  lambda_cm: 1.0
+  dropout: 0.5
+  sparse: false
+  graph_update_freq: -1  # -1 = only build once, >0 = update every N steps

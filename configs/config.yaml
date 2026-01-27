@@ -1,0 +1,28 @@
+defaults:
+  - task: nc
+  - model: gcn
+  - dataset: movies
+  - _self_
+  
+seed: 43
+log_dir: outputs/
+device: "cuda:0"
+
+text_encoder: null
+visual_encoder: null
+modality: "multimodal" # options: "text", "visual", "multimodal"
+text_trainable: False
+visual_trainable: False
+batch_size: 32
+
+embedding:
+  encoder_type: "qwen_vl"
+  encoder_name: "Qwen/Qwen2-VL-7B-Instruct"
+  dimension: 768
+
+training:
+  epochs: 500
+  lr: 0.001
+  patience: 25 
+  val_ratio: 0.1
+  tau: 0.07

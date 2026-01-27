@@ -1,0 +1,14 @@
+name: Bili_Dance
+data_root: /root/autodl-tmp/MMAG
+
+text_path: /root/autodl-tmp/MMAG/Bili_Dance/Bili_Dance.csv
+image_path: /root/autodl-tmp/MMAG/Bili_Dance/Bili_DanceImages_extracted/Bili_DanceImages
+graph_path: /root/autodl-tmp/MMAG/Bili_Dance/Bili_DanceGraph.pt
+v_emb_path: /root/autodl-tmp/MMAG/Bili_Dance/image_features/Bili_Dance_image_Qwen_Qwen2_VL_7B_Instruct_768d.npy
+t_emb_path: /root/autodl-tmp/MMAG/Bili_Dance/text_features/Bili_Dance_text_Qwen_Qwen2_VL_7B_Instruct_768d.npy
+train_ratio: 0.6
+val_ratio: 0.2
+lp_val_ratio: 0.1
+lp_test_ratio: 0.2
+edge_split_path: None
+num_neg: 1000

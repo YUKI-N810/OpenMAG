@@ -1,0 +1,73 @@
+name: g2text
+context: "all" # text_only, all
+
+# neighbor sampling
+neighbor_mode: "embedding" # raw, embedding
+max_text_neighbors: 4
+max_image_neighbors: 4
+n_text_tokens: 4
+n_visual_tokens: 4
+position_type: "none" # none, gnn
+num_neighbor_layers: 1
+
+generation_model: "/root/autodl-tmp/hf_cache/facebook-opt-125m"
+#generation_model: "/root/autodl-tmp/hf_cache/t5-large"
+#generation_model: "/root/autodl-tmp/hf_cache/Llama3.2-1B-Instruct"
+text_model: "/root/autodl-tmp/hf_cache/xlm-roberta-base"
+visual_model: "/root/autodl-tmp/hf_cache/clip-vit-large-patch14"
+decoder_only: true
+freeze_lm: true
+
+max_input_length: 1024
+max_output_length: 128
+
+# PEFT (LoRA)
+peft_type: "lora" # none, lora, prefix, ia3, prompt
+lora_r: 64
+lora_alpha: 128
+lora_dropout: 0.0
+
+# PEFT (Prompt)
+num_virtual_tokens: 20
+
+# Train
+
+seed: 42
+start_epoch: 0
+epochs: 10
+
+# steps and batch size
+steps_per_epoch: 500
+val_steps_per_epoch: 25
+per_device_train_batch_size: 4
+per_device_val_batch_size: 4
+dataloader_num_workers: 4
+
+# optimizer
+learning_rate: 0.001
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.95
+grad_accumulation_steps: 8
+grad_clip: 0.5
+lr_warmup_steps: 200
+lr_schedule_step_size: 5
+lr_schedule_gamma: 0.1
+
+# mixed precision
+fp16: false
+bf16: true
+
+# others
+resume: null
+test: false
+print_freq: 50
+overwrite_cache: false
+
+# logs
+
+project: "MMGL"
+run_name: "G2Text"
+log_dir: "/root/autodl-tmp/hf_cache/saved_models"
+save_dir: "/root/autodl-tmp/hf_cache/saved_models"
+dist_url: null

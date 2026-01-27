@@ -1,0 +1,14 @@
+name: SemArt
+data_root: /root/autodl-tmp/MMAG
+
+text_path: /root/autodl-tmp/MMAG/SemArt/SemArt.csv
+image_path: /root/autodl-tmp/MMAG/SemArt/SemArtImages_extracted/SemArtImages
+graph_path: /root/autodl-tmp/MMAG/SemArt/SemArtGraph.pt
+v_emb_path: /root/autodl-tmp/MMAG/SemArt/image_features/SemArt_image_clip_vit_large_patch14_768d.npy
+t_emb_path: /root/autodl-tmp/MMAG/SemArt/text_features/SemArt_text_xlm_roberta_base_768d.npy
+train_ratio: 0.6
+val_ratio: 0.2
+lp_val_ratio: 0.2
+lp_test_ratio: 0.2
+edge_split_path: None
+num_neg: 5000

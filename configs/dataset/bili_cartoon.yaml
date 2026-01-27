@@ -1,0 +1,14 @@
+name: Bili_Cartoon
+data_root: /root/autodl-tmp/MMAG
+
+text_path: /root/autodl-tmp/MMAG/Bili_Cartoon/Bili_Cartoon.csv
+image_path: /root/autodl-tmp/MMAG/Bili_Cartoon/Bili_CartoonImages_extracted/Bili_CartoonImages
+graph_path: /root/autodl-tmp/MMAG/Bili_Cartoon/Bili_CartoonGraph.pt
+v_emb_path: /root/autodl-tmp/MMAG/Bili_Cartoon/image_features/Bili_Cartoon_image_Qwen_Qwen2_VL_7B_Instruct_768d.npy
+t_emb_path: /root/autodl-tmp/MMAG/Bili_Cartoon/text_features/Bili_Cartoon_text_Qwen_Qwen2_VL_7B_Instruct_768d.npy
+train_ratio: 0.6
+val_ratio: 0.2
+lp_val_ratio: 0.1
+lp_test_ratio: 0.2
+edge_split_path: None
+num_neg: 1000

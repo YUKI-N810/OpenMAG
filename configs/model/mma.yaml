@@ -1,0 +1,10 @@
+name: "MMA"
+params:
+  hidden_dim: 256
+  out_dim: 768
+  num_layers: 2
+  dropout: 0.2
+  add_all: true
+  activation: "relu"
+  k: 4
+  aggregator_list: ["sum", "mean", "max", "std"]

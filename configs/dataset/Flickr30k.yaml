@@ -1,0 +1,14 @@
+name: Flickr30k
+data_root: /root/autodl-tmp/MMAG
+
+text_path: /root/autodl-tmp/MMAG/Flickr30k/Flickr30k.csv
+image_path: /root/autodl-tmp/MMAG/Flickr30k/Flickr30kImages_extracted/Flickr30kImages
+graph_path: /root/autodl-tmp/MMAG/Flickr30k/Flickr30kGraph.pt
+v_emb_path: /root/autodl-tmp/MMAG/Flickr30k/image_features/Flickr30k_image_Qwen_Qwen2_VL_7B_Instruct_768d.npy
+t_emb_path: /root/autodl-tmp/MMAG/Flickr30k/text_features/Flickr30k_text_Qwen_Qwen2_VL_7B_Instruct_768d.npy
+train_ratio: 0.6
+val_ratio: 0.2
+lp_val_ratio: 0.2
+lp_test_ratio: 0.2
+edge_split_path: None
+num_neg: 5000

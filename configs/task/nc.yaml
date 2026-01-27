@@ -1,0 +1,23 @@
+name: nc
+n_epochs: 30
+lr: 5e-3
+fewshots: False
+weight_decay: 1e-5
+n_runs: 1
+self_loop: True
+undirected: True
+num_neighbors: 25
+batch_size: 1024
+lambda_v: 0.5
+lambda_t: 0.5
+lambda_model: 1.0
+num_neg_samples: 5
+label_smoothing: 0.1
+text_noise_rate: 0.0
+image_missing_rate: 0.0
+edge_missing_rate: 0.0
+label_noise_rate: 0.0
+
+early_stopping: False
+show_efficiency: False
+patience: 25

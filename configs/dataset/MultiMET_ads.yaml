@@ -1,0 +1,14 @@
+name: MultiMET_ads
+data_root: /root/autodl-tmp/MMAG
+
+text_path: /root/autodl-tmp/MMAG/MultiMET_ads/MultiMET_ads.csv
+image_path: /root/autodl-tmp/MMAG/MultiMET_ads/MultiMET_adsImages_extracted/MultiMET_adsImages
+graph_path: /root/autodl-tmp/MMAG/MultiMET_ads/MultiMET_adsGraph.pt
+v_emb_path: /root/autodl-tmp/MMAG/MultiMET_ads/image_features/MultiMET_ads_image_Qwen2_VL_7B_Instruct_768d.npy
+t_emb_path: /root/autodl-tmp/MMAG/MultiMET_ads/text_features/MultiMET_ads_text_Qwen2_VL_7B_Instruct_768d.npy
+train_ratio: 0.6
+val_ratio: 0.2
+lp_val_ratio: 0.2
+lp_test_ratio: 0.2
+edge_split_path: None
+num_neg: 5000

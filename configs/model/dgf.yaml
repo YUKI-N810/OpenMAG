@@ -1,0 +1,13 @@
+name: DGF
+params:
+  hidden_dim: 64
+  alpha: 1.0
+  beta: 1.0
+  num_layers: 10
+  theta: 0.3
+  walks_per_node: 10
+  walk_length: 5
+  context_size: 3
+  dropout: 0.0
+  aas: true
+  std: 1.0
