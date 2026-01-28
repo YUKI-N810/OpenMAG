@@ -27,6 +27,7 @@
   <img src="Resources/framework.png" alt="OpenMAG Framework" border="0" width="800px"/>
   <p align="center"><em>Figure 1: The overall framework of OpenMAG.</em></p>
 </div>
+
 ## <span id="datasets">🗂️ Dataset Overview</span>
 
 OpenMAG collects **19 datasets** spanning **6 distinct domains**, ensuring diversity in evaluation to prevent overfitting to specific scenarios. You can download datasets from here. [🤗 Hugging Face](https://huggingface.co/datasets/Uniguri810/OpenMAG)
