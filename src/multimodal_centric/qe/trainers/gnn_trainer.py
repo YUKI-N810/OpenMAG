@@ -28,7 +28,7 @@ from torch_geometric.data import Data
 project_root = Path(__file__).resolve().parent.parent.parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.model.models import GCN, GraphSAGE, GAT, MLP, GIN, ChebNet, GravNet, LGMRec, GCNII, GATv2, MHGAT
+from src.model.models import GCN, GraphSAGE, GAT, MLP, GIN, ChebNet, LGMRec, GCNII, GATv2, MHGAT
 from src.model.MMGCN import Net as MMGCN
 from src.model.MGAT import MGAT as MGAT_model
 from src.model.REVGAT import RevGAT

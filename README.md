@@ -15,7 +15,7 @@
 
 ## <span id="introduction">📚 Introduction</span>
 
-**OpenMAG** is a unified and comprehensive benchmark platform designed for **Multimodal-Attributed Graph (MAG)** learning. It integrates **19 datasets** across **6 domains**, **16 modality encoders** ranging from frozen extractors to trainable backbones, and **24 graph learning models** to support **3 graph-centric** and **5 modality-centric** tasks.
+**OpenMAG** is a unified and comprehensive benchmark platform designed for **Multimodal-Attributed Graph (MAG)** learning. It integrates **19 datasets** across **6 domains**, **16 modality encoders** ranging from frozen extractors to trainable backbones, and **24 graph learning models** to support **3 graph-based** and **5 modality-based** tasks.
 
 ### Key Contributions
 
@@ -33,14 +33,14 @@
 OpenMAG collects **19 datasets** spanning **6 distinct domains**, ensuring diversity in evaluation to prevent overfitting to specific scenarios.
 
 
-| Domain             | Datasets                                                                                       | Description                                                |
-| :----------------- | :--------------------------------------------------------------------------------------------- | :--------------------------------------------------------- |
-| **E-Commerce**     | `Grocery`, `Toys`,  `Cloth`, `Ele-fashion`, `Sports`, `Movies`                                 | Product co-purchasing networks with images/titles.         |
-| **Social Media**   | `RedditS`                                                                                      | Post threading relationships with text/images.             |
-| **Video Rec.**     | `Bili_series` (Cartoon, Dance, Food, Movie, Music), `DY` (TikTok), `KU` (Kuaishou), `TN`, `QB` | Video co-viewing networks with covers/descriptions.        |
-| **Art Networks**   | `SemArt`                                                                                       | Fine-art paintings connected by shared attributes.         |
-| **Image Networks** | `Flickr30k`                                                                                    | Image-caption semantic graphs for region-phrase alignment. |
-| **Book Rec.**      | `Goodreads-nc`                                                                                 | Book co-shelving networks with summaries/covers.           |
+| Domain                   | Datasets                                                                                       | Description                                                |
+| :----------------------- | :--------------------------------------------------------------------------------------------- | :--------------------------------------------------------- |
+| **E-Commerce**           | `Grocery`, `Toys`,  `Cloth`, `Ele-fashion`, `Sports`, `Movies`                                 | Product co-purchasing networks with images/titles.         |
+| **Social Media**         | `RedditS`                                                                                      | Post threading relationships with text/images.             |
+| **Video Recommendation** | `Bili_series` (Cartoon, Dance, Food, Movie, Music), `DY` (TikTok), `KU` (Kuaishou), `TN`, `QB` | Video co-viewing networks with covers/descriptions.        |
+| **Art Networks**         | `SemArt`                                                                                       | Fine-art paintings connected by shared attributes.         |
+| **Image Networks**       | `Flickr30k`                                                                                    | Image-caption semantic graphs for region-phrase alignment. |
+| **Book Recommendation**  | `Goodreads-nc`                                                                                 | Book co-shelving networks with summaries/covers.           |
 
 ## <span id="encoders">🧩 Encoder Module</span>
 
@@ -104,13 +104,13 @@ We integrate **24 representative models** categorized into three paradigms. In a
 
 OpenMAG supports a diverse spectrum of downstream tasks:
 
-### Graph-Centric Tasks
+### Graph-Based Tasks
 
 * **Node Classification**: Learning discriminative node representations.
 * **Link Prediction**: Inferring missing edges based on topology and semantics.
 * **Node Clustering**: Partitioning nodes into semantic groups without supervision.
 
-### Modality-Centric Tasks
+### Modality-Based Tasks
 
 * **Modality Matching**: Verifying instance-level cross-modal correspondence.
 * **Modality Retrieval**: Image-to-Text and Text-to-Image retrieval.
