@@ -30,7 +30,7 @@
 
 ## <span id="datasets">🗂️ Dataset Overview</span>
 
-OpenMAG collects **19 datasets** spanning **6 distinct domains**, ensuring diversity in evaluation to prevent overfitting to specific scenarios. You can download datasets from here. [🤗 Hugging Face](https://huggingface.co/datasets/Uniguri810/OpenMAG)
+OpenMAG collects **19 datasets** spanning **6 distinct domains**, ensuring diversity in evaluation to prevent overfitting to specific scenarios.
 
 
 | Domain             | Datasets                                                                                       | Description                                                |
