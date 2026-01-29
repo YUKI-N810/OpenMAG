@@ -53,7 +53,6 @@ from diffusers.utils.hub_utils import load_or_create_model_card, populate_model_
 from diffusers.utils.import_utils import is_xformers_available
 from diffusers.utils.torch_utils import is_compiled_module
 
-# (改) 改回下面的注释
 # import sys
 # sys.path.append('..')
 # from Instructg2i.dataset import GraphImageTextDataset
@@ -67,7 +66,6 @@ from model.models import GCN, GraphSAGE, GAT, MLP, GIN, ChebNet, LGMRec, GCNII, 
 from model.MMGCN import Net
 from model.MGAT import MGAT
 from model.REVGAT import RevGAT
-from model.MMA import MMAConv
 from model.UniGraph2 import UniGraph2
 from model.DGF import DGF
 # from utils.data_utils import Datasetname2class
@@ -215,46 +213,6 @@ def load_config(config_path):
         config = json.load(f)
     return config
 
-def parse_args():
-    # Use argparse to get the config path from the command line
-    parser = argparse.ArgumentParser(description="Script with config file.")
-    
-    # Argument to pass the config file path
-    # (改) required=True,删除default
-    parser.add_argument(
-        "--config", 
-        type=str, 
-        # required=True, 
-        # default='/home/ai/scliu/MAGFM-pipeline/InstructG2I/config/train_goodreaders.json',
-        # default='./config/train_Grocery.json',
-        default='./config/train_DY.json',
-        help="Path to the configuration file in JSON format."
-    )
-
-    # Parse just the `--config` argument to get the path to the config file
-    args = parser.parse_args()
-
-    # Load the configuration file
-
-    config_path = args.config
-    config = load_config(config_path)
-
-    # Convert the loaded config dictionary into an argparse.Namespace object
-    args = argparse.Namespace(**config)
-
-    env_local_rank = int(os.environ.get("LOCAL_RANK", -1))
-    if env_local_rank != -1 and env_local_rank != args.local_rank:
-        args.local_rank = env_local_rank
-
-    # Sanity checks
-    if args.dataset_name is None and args.train_data_dir is None:
-        raise ValueError("Need either a dataset name or a training folder.")
-
-    # Default to using the same revision for the non-ema model if not specified
-    if args.non_ema_revision is None:
-        args.non_ema_revision = args.revision
-
-    return args
 
 class SimpleBaselineAdapter(torch.nn.Module):
     """

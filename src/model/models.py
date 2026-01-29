@@ -251,7 +251,7 @@ class LGMRec(nn.Module):
             embs_list.append(current_emb)
             
         local_structure_emb = torch.stack(embs_list, dim=1).mean(dim=1)
-        global_hyper_emb = self.hgnn(x_emb) # 使用原始特征构建超图
+        global_hyper_emb = self.hgnn(x_emb)
         final_emb = local_structure_emb + self.alpha * F.normalize(global_hyper_emb, p=2, dim=1)
         x_vision = F.dropout(F.relu(self.vision_head(final_emb)), p=self.dropout, training=self.training)
         x_text = F.dropout(F.relu(self.text_head(final_emb)), p=self.dropout, training=self.training)
@@ -308,11 +308,10 @@ class GATv2(nn.Module):
         
         self.convs = nn.ModuleList()
         self.norms = nn.ModuleList()
-        self.lin_projs = nn.ModuleList() # 用于解决残差连接维度不匹配问题
+        self.lin_projs = nn.ModuleList()
 
         self.convs.append(GATv2Conv(in_dim, hidden_dim, heads=heads, dropout=att_dropout, concat=True))
         self.norms.append(nn.LayerNorm(hidden_dim * heads))
-        # 输入维度不匹配，无法直接做残差，需要投影
         self.lin_projs.append(nn.Linear(in_dim, hidden_dim * heads))
 
         for _ in range(num_layers - 2):
@@ -325,11 +324,7 @@ class GATv2(nn.Module):
             self.convs.append(GATv2Conv(hidden_dim * heads, hidden_dim, heads=heads, dropout=att_dropout, concat=True))
             self.norms.append(nn.LayerNorm(hidden_dim * heads))
             self.lin_projs.append(nn.Identity())
-        
-        # 最终融合层：把多头拼接后的特征 (hidden_dim * heads) 映射回 (hidden_dim)
         self.out_proj = nn.Linear(hidden_dim * heads, hidden_dim)
-
-        # 适配 OpenMAG 输出头
         self.vision_head = nn.Linear(hidden_dim, hidden_dim)
         self.text_head = nn.Linear(hidden_dim, hidden_dim)
 

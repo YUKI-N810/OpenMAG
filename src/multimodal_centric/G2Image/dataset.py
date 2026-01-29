@@ -56,7 +56,6 @@ def read_metadata_graph_mine(img_dir, img_key, text_key, neighbor_key, tokenizer
     with open(os.path.join(img_dir, 'metadata.jsonl')) as f:
         readin = f.readlines()
         for step,line in tqdm(enumerate(readin),total=len(readin),desc='read metadata'):
-            # (改) 去掉 step限制
             if step % 10 == 0: 
             # if step == 1:
                 tmp = json.loads(line)
@@ -111,8 +110,6 @@ class GraphImageTextDataset(Dataset):
         return len(self.meta_data)
 
     def __getitem__(self, idx):
-        # 正常情况下，中心节点与邻节点编号都是正确的node_id，但存的图像却是用asin存储
-        # 因此我们需要一个node_2_asin，将节点对应到正确的asin——image
         node_2_asin = torch.load(os.path.join(self.args.save_data_path,'processed','node_2_asin.pt'))
        
         example = {}
@@ -131,9 +128,9 @@ class GraphImageTextDataset(Dataset):
         pixel_values = self.center_transform(image)
         neighbor_pixel_values = [self.clip_image_processor(self.neighbor_transform(img), return_tensors="pt").pixel_values for img in neighbor_image]
 
-        example["pixel_values"] = pixel_values # idx节点的
-        example["input_ids"] = self.meta_data[idx]["input_ids"] # idx节点的文本分词
-        example["neighbor_pixel_values"] = torch.stack(neighbor_pixel_values).squeeze(1) # 邻节点的
+        example["pixel_values"] = pixel_values 
+        example["input_ids"] = self.meta_data[idx]["input_ids"] 
+        example["neighbor_pixel_values"] = torch.stack(neighbor_pixel_values).squeeze(1)
         example["neighbor_mask"] = torch.LongTensor(neighbor_mask)
         example["neighbor_idx"] = neighbor_idx
         example['center_idx'] = idx

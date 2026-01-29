@@ -65,47 +65,28 @@ def postprocess_text(preds, labels):
     return preds, labels
 
 def normalize_graph(adj):
-    """
-    对邻接矩阵进行对称归一化处理: D^-1/2 * A * D^-1/2
-    """
-    # adj 是一个 dense tensor (node_num, node_num)
-    # 1. 加上自环 (Self-loop)
     adj = adj + torch.eye(adj.size(0)).to(adj.device)
-    
-    # 2. 计算度矩阵 D
     rowsum = adj.sum(1)
-    
-    # 3. 计算 D 的 -1/2 次方
     d_inv_sqrt = torch.pow(rowsum, -0.5).flatten()
     d_inv_sqrt[torch.isinf(d_inv_sqrt)] = 0.
     d_mat_inv_sqrt = torch.diag(d_inv_sqrt)
-    
-    # 4. 计算 D^-1/2 * A * D^-1/2
     return d_mat_inv_sqrt @ adj @ d_mat_inv_sqrt
 
 def compute_LPE(data, k=8):
-    """
-    计算图拉普拉斯位置编码 (Laplacian Positional Encoding)
-    """
-    # 提取 edge_index 构造稀疏矩阵
     edge_index = data.edge_index.cpu().numpy()
     node_num = data.x.size(0)
     
     adj = sparse.csr_matrix((np.ones(edge_index.shape[1]), (edge_index[0], edge_index[1])), shape=(node_num, node_num))
-    
-    # 构造归一化拉普拉斯矩阵: L = I - D^-1/2 * A * D^-1/2
     deg = np.array(adj.sum(1)).flatten()
     deg_inv_sqrt = np.power(deg, -0.5, where=deg > 0)
     d_mat_inv_sqrt = sparse.diags(deg_inv_sqrt)
     l_norm = sparse.eye(node_num) - d_mat_inv_sqrt @ adj @ d_mat_inv_sqrt
-    
-    # 特征值分解
+
     try:
         evals, evecs = sparse.linalg.eigsh(l_norm, k=k+1, which='SM', return_eigenvectors=True)
     except:
         return torch.zeros((node_num, k))
         
-    # 排序并取前 k 个（排除第一个平凡特征向量）
     idx = evals.argsort()
     evecs = evecs[:, idx[1:k+1]]
     
