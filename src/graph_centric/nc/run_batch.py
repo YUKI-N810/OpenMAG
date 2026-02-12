@@ -317,12 +317,16 @@ class GNNModel(nn.Module):
         self.decoder_v.reset_parameters()
         self.decoder_t.reset_parameters()
 
-    def forward(self, x, edge_index):
+    def forward(self, x, edge_index, n_id=None):
         loss = torch.tensor(0.0, device=x.device, requires_grad=False)
+        kwargs = {}
+        if isinstance(self.encoder, (Net, MGAT)):
+            kwargs['n_id'] = n_id
+            kwargs['use_subgraph'] = True
         if self.training and hasattr(self.encoder, "can_return_loss") and self.encoder.can_return_loss:
-            x, x_v, x_t, loss = self.encoder(x, edge_index)
+            x, x_v, x_t, loss = self.encoder(x, edge_index, **kwargs)
         else:
-            x, x_v, x_t = self.encoder(x, edge_index)
+            x, x_v, x_t = self.encoder(x, edge_index, **kwargs)
         out = self.classifier(x)
         out_v = self.decoder_v(x_v)
         out_t = self.decoder_t(x_t)
@@ -432,6 +436,7 @@ def evaluate(model, data, mask, config, num_classes):
     is_t_train = data.aux_info.get('text_trainable', False)
 
     for batch in loader:  # Iterate over subgraphs
+        n_id = batch.n_id
         if is_trainable_mode:
             node_ids = batch.n_id.cpu().numpy()
             
@@ -465,10 +470,10 @@ def evaluate(model, data, mask, config, num_classes):
                 batch_att_mask = all_att_mask[node_ids].to(config.device)
             
             # Forward: out, out_v, out_t, [loss], [v_emb], [t_emb]
-            res = model(batch.x.to(config.device), raw_imgs, batch_input_ids, batch_att_mask, batch.edge_index.to(config.device))
+            res = model(batch.x.to(config.device), raw_imgs, batch_input_ids, batch_att_mask, batch.edge_index.to(config.device), n_id=n_id)
             out = res[0]
         else:
-            out, out_v, out_t = model(batch.x.to(config.device), batch.edge_index.to(config.device))
+            out, out_v, out_t = model(batch.x.to(config.device), batch.edge_index.to(config.device), n_id=n_id)
             
         pred = out.argmax(dim=1)
         # correct += (pred[batch.train_mask] == batch.y[batch.train_mask]).sum().item()
@@ -586,6 +591,7 @@ def train_and_eval(config, model, data, run_id=0):
         
         for batch_idx, batch in enumerate(pbar):
             batch = batch.to(config.device)
+            n_id = batch.n_id
             batch.x = torch.nan_to_num(batch.x, nan=0.0, posinf=0.0, neginf=0.0)
 
             with autocast('cuda'):
@@ -619,7 +625,7 @@ def train_and_eval(config, model, data, run_id=0):
                         
                         batch_input_ids = all_input_ids[node_ids].to(config.device)
                         batch_att_mask = all_att_mask[node_ids].to(config.device)
-                    res = model(batch.x, raw_imgs, batch_input_ids, batch_att_mask, batch.edge_index)
+                    res = model(batch.x, raw_imgs, batch_input_ids, batch_att_mask, batch.edge_index, n_id=n_id)
                     out, out_v, out_t = res[0], res[1], res[2]
                     
                     if len(res) >= 6:
@@ -637,7 +643,7 @@ def train_and_eval(config, model, data, run_id=0):
 
                 else:
                     # Frozen Mode
-                    out, out_v, out_t, loss_model = model(batch.x, batch.edge_index)
+                    out, out_v, out_t, loss_model = model(batch.x, batch.edge_index, n_id=n_id)
                     target_visual = batch.x[:, :data.v_dim]
                     target_text = batch.x[:, data.v_dim:]
                 

@@ -112,18 +112,12 @@ class MGAT(torch.nn.Module):
     #     pos_scores = torch.sum(user_tensor * pos_tensor, dim=1)
     #     neg_tensor = torch.sum(user_tensor * neg_tensor, dim=1)
     #     return pos_scores, neg_tensor
-    def forward(self, feat, edge_index, use_subgraph=True):
+    def forward(self, feat, edge_index, use_subgraph=True, n_id=None):
         if use_subgraph:
-            
-            batch_nodes = torch.unique(edge_index)
-            batch_nodes, _ = torch.sort(batch_nodes)
-            edge_index_sub, _ = subgraph(batch_nodes, edge_index, relabel_nodes=True)
-            sub_id_embedding = self.id_embedding[batch_nodes]
-            feat = feat[batch_nodes]
-            v_rep = self.v_gnn(feat[:, :self.v_dim], sub_id_embedding, edge_index_sub)
-            t_rep = self.t_gnn(feat[:, self.v_dim:], sub_id_embedding, edge_index_sub)
+            sub_id_embedding = self.id_embedding[n_id]
+            v_rep = self.v_gcn(feat[:, :self.v_dim], sub_id_embedding, edge_index)
+            t_rep = self.t_gcn(feat[:, self.v_dim:], sub_id_embedding, edge_index)
             representation = (v_rep + t_rep) / 2
-            # self.result[batch_nodes] = representation  # Save to global graph position
             return representation, v_rep, t_rep
         else:
             # Full graph inference logic (for eval/test)

@@ -309,13 +309,14 @@ def train(model, predictor, linear_v_t,
     for subgraph in loader:
         optimizer.zero_grad()
         subgraph = subgraph.to(config.device)
+        n_id = subgraph.n_id
 
         # Handle models returning 4 values (with loss_model)
         loss_model = 0
         if hasattr(model, 'can_return_loss') and model.can_return_loss and model.training:
-            emb, out_v, out_t, loss_model = model(subgraph.x, subgraph.edge_index)
+            emb, out_v, out_t, loss_model = model(subgraph.x, subgraph.edge_index, use_subgraph=True, n_id=n_id)
         else:
-            emb, out_v, out_t = model(subgraph.x, subgraph.edge_index)
+            emb, out_v, out_t = model(subgraph.x, subgraph.edge_index, use_subgraph=True, n_id=n_id)
         out_v, out_t = linear_v_t(out_v, out_t)
 
         nce_idx = torch.arange(

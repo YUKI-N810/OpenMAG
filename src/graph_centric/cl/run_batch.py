@@ -270,10 +270,14 @@ class GNNModel(nn.Module):
     
     def forward(self, x, edge_index):
         loss = torch.tensor(0.0, device=x.device, requires_grad=False)
+        kwargs = {}
+        if isinstance(self.encoder, (Net, MGAT)):
+            kwargs['use_subgraph'] = False
+            
         if self.training and hasattr(self.encoder, "can_return_loss") and self.encoder.can_return_loss:
-            x, x_v, x_t, loss = self.encoder(x, edge_index)
+            x, x_v, x_t, loss = self.encoder(x, edge_index, **kwargs)
         else:
-            x, x_v, x_t = self.encoder(x, edge_index)
+            x, x_v, x_t = self.encoder(x, edge_index, **kwargs)
         out_v = self.decoder_v(x_v)
         out_t = self.decoder_t(x_t)
         if self.training:
@@ -549,7 +553,12 @@ def evaluate(model, data, mask, config, num_clusters, cluster_centers=None):
     x = torch.nan_to_num(x, nan=0.0, posinf=0.0, neginf=0.0)
     edge_index = data.edge_index.to(device)
     
-    res = model(x, edge_index)
+    kwargs = {}
+    if isinstance(model, (Net, MGAT)):
+        kwargs['use_subgraph'] = False
+
+    res = model(x, edge_index, **kwargs)
+    embeddings = res[0]
     embeddings = res[0]  # [N, hidden_dim]
     
     # Only take embeddings and labels of evaluation nodes
@@ -636,7 +645,11 @@ def train_and_eval(config, model, data, run_id=0):
                 model.train()
         
         # Forward pass (full graph)
-        res = model(x, edge_index)
+        kwargs = {}
+        if isinstance(model, (Net, MGAT)):
+            kwargs['use_subgraph'] = False
+            
+        res = model(x, edge_index, **kwargs)
         embeddings = res[0]  # [N, hidden_dim]
         
         # Handle model output
